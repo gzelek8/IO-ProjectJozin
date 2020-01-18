@@ -182,8 +182,12 @@ public:
 			if (nazwa == "FUNCTIONS")
 			{
 				for (k = 0; k < l_funkcji; k++)
-				{
+				{	if(complexity[k]!=" [0]"{
 					graph += "" + quote + funkcja[k] + quote + " [style =filled, color=" + color + " xlabel=" + quote + complexity[k]+ quote  + "]; \n";
+					}
+					else{
+					graph += "" + quote + poloczenia[k] + quote + " [style =filled, color=" + color + "]; \n";
+					}
 				}
 			}
 			else {
