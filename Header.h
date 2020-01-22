@@ -18,33 +18,32 @@ public:
 	string znak = "->";
 	const string quote = "\"";
 	string linia;
-	string linia2;
 	fstream dane;
 	int rozmiar_dynamicznej = 0;
 
-
-	string graph = "digraph G {graph [rankdir = \"LR\" bgcolor = \"antiquewhite:aquamarine\" style = \"filled\" gradientangle = 270]; "; 
+	//poczatek polecnenia do grafu, parametry: od lewej do prawej, gradient dwukolorowy w tle
+	string graph = "digraph G {graph [rankdir = \"LR\" bgcolor = \"antiquewhite:aquamarine\" style = \"filled\" gradientangle = 270]; ";	
 		
-	string dotPath = ".\\lib\\bin\\dot.exe"; //link do biblioteki
-	string notatnik = "graf_jozin.txt";
-	string tempFile = "temp.dot";
-	string outFile = "out.png";
+	string dotPath = "C:\\Users\\Tycjan\\Documents\\release\\bin\\dot.exe"; //link do biblioteki
+	string notatnik = "graf_jozin.txt";		//nazwa notatnika
+	string tempFile = "temp.dot";			//nazwa pliku pomocniczego
+	string outFile = "out.png";				//nazwa pliku png z grafem
 };
 
 class Funkcje : public Dane
 {
 public:
 	void draw() {
-		dane.open(notatnik, ios::in);  //txt od Grzesia
+		dane.open(notatnik, ios::in); 
 		string gitcommit;
 		if (dane.good() == false)
 		{
-			cout << "Nie mozna otworzyc pliku";		//hash commit git
+			cout << "Nie mozna otworzyc pliku";	
 			exit(0);
 		}
 		else
 		{
-			while (getline(dane, linia))
+			while (getline(dane, linia))		//pobieranie hash commit z notatnika
 			{
 				if (linia == "HASH_COMMIT") {
 					break;
@@ -59,7 +58,7 @@ public:
 			"label = "+ gitcommit +" \n"
 			"fontsize = 12; \n"
 			"}";
-		cout << graph << endl;
+		cout << "TWORZENIE GRAFU W  TOKU" << endl;
 		ofstream out;
 		out.open(tempFile.c_str(), std::ios::out);
 		out << graph << std::endl;
@@ -81,19 +80,21 @@ public:
 		}
 		else
 		{
-			ifstream file("graf_jozin.txt");		//sprawdzanie rozmiaru pliku do stworzenia tablic dynamicznych
-			while (getline(file, linia2))
+			ifstream file(notatnik);		//sprawdzanie rozmiaru pliku do stworzenia tablic dynamicznych
+			while (getline(file, linia))		//przechodzimy pierwszy po pliku, liczymy rozmiar zeby stworzyc dynamiczne tablice
 				rozmiar_pliku++;
 
-			string* grafs = new string[rozmiar_pliku];	// stringi potrzebne do rysowania grafu w petli
+			// stringi potrzebne do rysowania grafu w petli
+			string* grafs = new string[rozmiar_pliku];		//tablica pomocnicza
 			string* poloczenia = new string[rozmiar_pliku];//tablica do poloczen
 			string* wagi = new string[rozmiar_pliku]();//tablica do wag
 
-			string* funkcja = new string[rozmiar_pliku];//tablica do complexity
-			string* complexity = new string[rozmiar_pliku];
+			string* funkcja = new string[rozmiar_pliku];//tablica do wszystkich funkcji (wezlow)
+			string* complexity = new string[rozmiar_pliku]; //tablica complexity
 
 			for (int i = 0; i < rozmiar_pliku; i++)
 				wagi[i] = "0";			//zerujemy tablice wag
+
 			for (int i = 0; i < rozmiar_pliku; i++)	//zerujemy complexity
 				complexity[i] = "0";
 
@@ -101,7 +102,7 @@ public:
 			int l_polaczen = 0;
 			i = 0;
 
-			while (getline(dane, linia))
+			while (getline(dane, linia))	//przeszukujemy az do nazwy (files,functions itp)
 			{
 				if (linia == nazwa) {
 					break;
@@ -139,17 +140,14 @@ public:
 			}
 
 			i = 0;
-			char delimeter(' ');
 			while (getline(dane, linia))          //petla zczytujaca funkcje i complexity
 			{
 				if (linia == "dane") break;
 				funkcja[i] = linia;
-				funkcja[i].erase(funkcja[i].find(' '));
+				funkcja[i].erase(funkcja[i].find(' '));		//nazwa funkcji z jej waga do tablicy funkcja
 
 				complexity[i] = linia;
-				complexity[i].erase(complexity[i].begin(), complexity[i].end() - 4);
-				//complexity[i] = linia.at(linia.length() - 2);
-				cout << complexity[i] << endl;
+				complexity[i].erase(complexity[i].begin(), complexity[i].end() - 4); //ostatnie 4 znaki do tablicy complexity
 				l_funkcji++;
 				i++;
 				
@@ -179,15 +177,17 @@ public:
 
 
 			int k=0;
-			if (nazwa == "FUNCTIONS")
+			if (nazwa == "FUNCTIONS")		//complexity tylko dla funkcji
 			{
 				for (k = 0; k < l_funkcji; k++)
-				{	if(complexity[k]!=" [0]"{
-					graph += "" + quote + funkcja[k] + quote + " [style =filled, color=" + color + " xlabel=" + quote + complexity[k]+ quote  + "]; \n";
+				{ 
+					if (complexity[k] != " [0]") {		//sprawdzamy czy complexity jest rowne 0, jesli nie to wypisujemy je
+						graph += "" + quote + funkcja[k] + quote + " [style =filled, color=" + color + " xlabel=" + quote + complexity[k] + quote + "]; \n";
 					}
-					else{
-					graph += "" + quote + poloczenia[k] + quote + " [style =filled, color=" + color + "]; \n";
+					else {
+						graph += "" + quote + poloczenia[k] + quote + " [style =filled, color=" + color + "]; \n";
 					}
+
 				}
 			}
 			else {
@@ -204,7 +204,6 @@ public:
 			}
 
 
-			cout << graph;
 			delete[] poloczenia;
 			delete[] wagi;
 			delete[] grafs;
