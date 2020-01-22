@@ -1,3 +1,31 @@
+commit cff71210e1940a365bc1b6ca64a8531747b8eca6
+Author: wtycjan <56653553+wtycjan@users.noreply.github.com>
+Date:   Wed Jan 22 15:57:27 2020 +0100
+
+    Update Header.h
+    
+    komentarze
+
+commit a72e2fec6020ebcb589a3b6385915f38444860b6
+Author: zarczynsky <54021935+zarczynsky@users.noreply.github.com>
+Date:   Sat Jan 18 21:49:27 2020 +0100
+
+    Update Header.h
+    
+    teraz complexity jest tylko dla funkcji, czyli tak jak trzeba
+
+commit 7dcd2da8fd934a79c51a714b6466ff45598d9acd
+Author: wiktorwanat <wanatwiktor08@gmail.com>
+Date:   Tue Jan 14 11:50:02 2020 +0100
+
+    13 done
+
+commit c14860f40b99e2da43c7da5500fecb894be173ca
+Author: wiktorwanat <wanatwiktor08@gmail.com>
+Date:   Tue Jan 14 11:49:20 2020 +0100
+
+    historyjka nr 12 vol 3
+
 commit c42de49e300885bb5a35654c3a4c7e860789d3e0
 Author: wiktorwanat <wanatwiktor08@gmail.com>
 Date:   Tue Jan 14 11:11:57 2020 +0100

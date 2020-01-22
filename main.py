@@ -2,6 +2,7 @@
 Moduł zawierąjący funkcje main. Jest to moduł wykonawczy
 """
 import os
+import sys
 
 import drawing
 import files
@@ -10,15 +11,16 @@ import functions
 import modules
 import pythonfiles
 import registration
+import tests_for_python
 
 
 def main():
     """Funkcja wykonująca cały program"""
     """Funkcja wykonująca cały program"""
+    tests_for_python.authomatic_testes()
     os.unlink("graf_jozin.txt")
 
     commit = functions.show_hash_commit()
-    registration.Registration.write_to_file('HASH_COMMIT',commit)
 
     modul = modules.Modules()
     fun = function.Functions()
@@ -48,7 +50,6 @@ def main():
     cyclomatic_complexity += join_list
 
     menu_choice = functions.menu()
-
 
     if menu_choice == 1:
         registration.Registration.write_to_file("FILES",
@@ -108,10 +109,13 @@ def main():
                                                 modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
         registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
         registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    elif menu_choice == 0:
+        sys.exit()
 
     else:
         print("Wybrałeś opcję z poza zakresu")
         main()
+    registration.Registration.write_to_file('HASH_COMMIT', commit)
     drawing.open_draw_grapf_exe()
 
 

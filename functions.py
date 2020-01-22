@@ -78,6 +78,7 @@ def menu():
     print("5.Pliki i moduły")
     print("6.Funkcje i moduły")
     print("7.Pliki, funkcje i moduły")
+    print("0.End")
     choice = int(input("Wybierz co chciałbyś zobaczyć na grafie."))
     return choice
 
@@ -108,8 +109,8 @@ def convert_list_to_list_for_cc(*args):
 
 def show_hash_commit():
     """funkcja w terminalu cmd wywoluje sh.exe a w nim wykonuje git loga aktualizujac commity na folder git_log.txt znajdujacy sie w folderze projektu """
-    #cmd_command = 'start "" "C:\\Program_Files\\Git\\bin\\sh.exe" --login -i -c "cd C:\\Users\\WIKUS\\PycharmProjects\\IO-ProjectJozin\\ && git --no-pager log > git_log.txt"'
-    cmd_command='cd C:\\Users\\WIKUS\\PycharmProjects\\IO-ProjectJozin\\ && git --no-pager log > git_log.txt"'
+    # cmd_command = 'start "" "C:\\Program_Files\\Git\\bin\\sh.exe" --login -i -c "cd C:\\Users\\WIKUS\\PycharmProjects\\IO-ProjectJozin\\ && git --no-pager log > git_log.txt"'
+    cmd_command = 'cd C:\\Users\\WIKUS\\PycharmProjects\\IO-ProjectJozin\\ && git --no-pager log > git_log.txt"'
     proc = subprocess.call(cmd_command, shell=True)
     time.sleep(2)
     with open('./git_log.txt', 'r') as hash_file:
@@ -120,6 +121,6 @@ def show_hash_commit():
 
         print('actual commit hash  : {}'.format(commit))
 
-        commit_as_list=[]
+        commit_as_list = []
         commit_as_list.append(commit)
     return commit_as_list
