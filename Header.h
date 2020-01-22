@@ -17,7 +17,7 @@ public:
 	int j = 0;
 	int igraf = 0;
 
-	int rozmiar_pliku=0; //ilosc linijek w naszym pliku, wyrazama przez funkcjce rozmiar_plik
+	int rozmiar_pliku = 0; //ilosc linijek w naszym pliku, wyrazama przez funkcjce rozmiar_plik
 	string znak = "->";
 	const string quote = "\"";
 	string linia;
@@ -28,7 +28,7 @@ public:
 	//poczatek polecnenia do grafu, parametry: od lewej do prawej, gradient dwukolorowy w tle
 	string graph = "digraph G {graph [rankdir = \"LR\" bgcolor = \"antiquewhite:aquamarine\" style = \"filled\" gradientangle = 270]; ";
 
-	string dotPath = "C:\\Users\\micha\\Downloads\\graphviz-2.38\\release\\bin\\dot.exe"; //link do biblioteki
+	string dotPath = "C:\\Users\\Tycjan\\Documents\\release\\bin\\dot.exe"; //link do biblioteki
 	string notatnik = "graf_jozin.txt"; // nazwa notatnika
 	string tempFile = "temp.dot"; //nazwa pliku pomocniczego
 	string outFile = "out.png"; //nazwa pliku png z grafem
@@ -46,7 +46,7 @@ public:
 
 
 	void draw() {
-		dane.open(notatnik, ios::in);  //txt od Grzesia
+		dane.open(notatnik, ios::in); 
 		string gitcommit;
 		if (dane.good() == false)
 		{
@@ -68,10 +68,9 @@ public:
 		dane.close();
 
 		graph += "overlap=false \n"		//konczymy tworzenie grafu
-			"label = " + gitcommit + " \n"
+			"label = " + gitcommit + " \n"	//wyswietlamy hash commit
 			"fontsize = 12; \n"
 			"}";
-		//1 cout << graph << endl;
 		ofstream out;
 		out.open(tempFile.c_str(), std::ios::out);
 		out << graph << std::endl;
@@ -81,7 +80,7 @@ public:
 	}
 	bool czy_istnieje_plik()
 	{
-		dane.open(notatnik, ios::in);  //txt od Grzesia
+		dane.open(notatnik, ios::in); 
 
 		if (dane.good() == false)
 		{
@@ -90,30 +89,30 @@ public:
 			return false;
 		}
 
-		else cout << "mozna otworzyc pliku";
+		else cout << "mozna otworzyc plik";
 		dane.close();
 		return true;
 	}
 
-	int rozmiar_plik() //ilosc liniejk w pliku txt
+	int rozmiar_plik() //ilosc linijek w pliku txt
 	{
 		rozmiar_pliku = 0;
 		dane.open(notatnik, ios::in);
-		ifstream file("graf_jozin.txt");	
+		ifstream file("graf_jozin.txt");
 
-		
-			while (!file.eof()) {
-				getline(file, linia2);
-				rozmiar_pliku++;
-			}
-			dane.close();
-		
+
+		while (!file.eof()) {
+			getline(file, linia2);
+			rozmiar_pliku++;
+		}
+		dane.close();
+
 
 		return rozmiar_pliku;
 	}
 
 
-	void szukanie_naglowka(string nazwa)
+	void szukanie_naglowka(string nazwa)	//odpowiedni naglowek w notatniku
 	{
 		dane.open(notatnik, ios::in);
 		while (getline(dane, linia))
@@ -135,7 +134,7 @@ public:
 			if (linia == "dane") break;
 		}
 		dane.close();
-		
+
 	}
 
 
@@ -162,7 +161,7 @@ public:
 
 	int ilosc_dynamicznej(string nazwa) //licznik wag jest jednoznaczny z iloscia polaczen
 	{
-		int rozmiar_dynamicznej = 0; ///u nas 22 w plikach
+		int rozmiar_dynamicznej = 0; 
 		i = 0;
 
 		dane.open(notatnik, ios::in);
@@ -191,15 +190,13 @@ public:
 		return rozmiar_dynamicznej;
 	}
 
-	//dla sprawdzania co wypisze nie potrzebana w programie
-	
+
 	void czytaj_wagi(string nazwa, string* wagi) //petla zczytujaca wagi
 	{
 
 		i = 0;
 
 		dane.open(notatnik, ios::in);
-		cout << "WAGI" << endl;
 		while (getline(dane, linia))
 		{
 			if (linia == nazwa) {
@@ -214,7 +211,7 @@ public:
 		while (getline(dane, linia))         //petla zczytujaca wagi
 		{
 			wagi[i] = linia;
-		
+
 			if (linia == "dane")
 			{
 				wagi[i] = "0";		//waga od i zeby nie byla rowna "dane"
@@ -223,7 +220,7 @@ public:
 			i++;
 		}
 		dane.close();
-	
+
 	}
 
 	void czytaj_complexity()
@@ -239,12 +236,12 @@ public:
 
 		i = 0;
 		char delimeter(' ');
-		cout << "COMPLEXY" << endl;
 		while (getline(dane, linia))          //petla zczytujaca funkcje i complexity
 		{
 			if (linia == "dane") break;
 			funkcja[i] = linia;
-			funkcja[i].erase(funkcja[i].find(' '));
+			funkcja[i].erase(funkcja[i].find(' '));		//linia az do znaku spacji
+
 			complexity[i] = linia;
 			complexity[i].erase(complexity[i].begin(), complexity[i].end() - 4); //ostatnie 4 znaki do tablicy complexity
 			i++;
@@ -275,34 +272,33 @@ public:
 	void rysuj_graf(string color, string* wagi, string* poloczenia, string* all, string* grafs, int wynik_dynamicznej, int wynik_polonczen, string nazwa)
 	{
 		i = 0;
-
 		for (j = 0; j < wynik_dynamicznej - 1; j++)	//all to sa te dlugie stringi, które wsadzamy do grafu
 		{											//tworzymy ich tyle ile jest polaczen
 
-
-			if (wagi[j] == "0")								//sprawdzamy czy musimy tworzyc polaczenie czy wolny wezel
+			//sprawdzamy czy musimy tworzyc polaczenie czy wolny wezel
+			if (wagi[j] == "0")	//wolny wezel						
 			{
 				all[j] = quote + poloczenia[i] + quote + ";\n" + quote + poloczenia[i + 1] + quote;
 				grafs[j] = all[j] + ";\n";
 				i = i + 2;
 			}
-			else {
+			else {	//polaczenie
 
 				all[j] = quote + poloczenia[i] + quote + znak + quote + poloczenia[i + 1] + quote;
 				grafs[j] = all[j] + "[label = " + wagi[j] + "];\n";
 				i = i + 2;
 			}
-		
+
 		}
 
 		int k = 0;
-		int l_funkcji = liczba_funkcji()-1;
+		int l_funkcji = liczba_funkcji() - 1;
 		czytaj_complexity();
-		if (nazwa == "FUNCTIONS")
+		if (nazwa == "FUNCTIONS")	//sprawdzamy complexity tylko dla funkcji
 		{
 			for (k = 0; k < l_funkcji; k++)
 			{
-				if (complexity[k] != " [0]"){
+				if (complexity[k] != " [0]") {	//jesli jest rowne 0 to nie wypisujemy go
 					graph += "" + quote + funkcja[k] + quote + " [style =filled, color=" + color + " xlabel=" + quote + complexity[k] + quote + "]; \n";
 				}
 				else {
@@ -328,7 +324,7 @@ public:
 		delete[] grafs;
 		delete[] all;
 	}
-	void zeruj_tab_wag(string* wagi)
+	void zeruj_tab_wag(string* wagi)	//zapobieganie bledow
 	{
 		for (int i = 0; i < rozmiar_plik(); i++)
 			wagi[i] = "0";
@@ -341,14 +337,15 @@ public:
 	}
 
 
-	void Functions()
+	void Functions()	//utworzenie grafu z polaczen samych funkcji
 	{
-		
+		cout << "Tworzenie grafu dla FUNKCJI w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FUNCTIONS");
 		int wynik_polonczen = ilosc_polaczen("FUNCTIONS");
-		
+
 		string* all = new string[wynik_dynamicznej];
-		
+
 		szukanie_naglowka("FUNCTIONS");
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "FUNCTIONS");
@@ -358,15 +355,15 @@ public:
 		draw();
 	}
 
-	void Files()
+	void Files()	//utworzenie grafu z polaczen samych plikow
 	{
-	
-		
+		cout << "Tworzenie grafu dla PLIKOW w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FILES");
 		int wynik_polonczen = ilosc_polaczen("FILES");
-		
+
 		string* all = new string[wynik_dynamicznej];
-		
+
 
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "FILES");
@@ -374,15 +371,16 @@ public:
 		rysuj_graf("gold1", wagi, poloczenia, all, grafs, wynik_dynamicznej, wynik_polonczen, "FILES");
 		draw();
 	}
-	
-	
-	void Modules()
+
+
+	void Modules()	//utworzenie grafu z polaczen samych modulow
 	{
-		
+		cout << "Tworzenie grafu dla MODULOW w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("MODULES");
 		int wynik_polonczen = ilosc_polaczen("MODULES");
 		string* all = new string[wynik_dynamicznej];
-		
+
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "MODULES");
 		czytaj_wagi("MODULES", wagi);
@@ -390,26 +388,27 @@ public:
 		draw();
 	}
 
-	void PlikiFunkcje()
+	void PlikiFunkcje()	//analogicznie
 	{
-		
+		cout << "Tworzenie grafu dla PLIKOW i FUNKCJI w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FILES");
 		int wynik_polonczen = ilosc_polaczen("FILES");
-		
+
 		string* all = new string[wynik_dynamicznej];
 
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "FILES");
 		czytaj_wagi("FILES", wagi);
-		rysuj_graf("gold1", wagi, poloczenia, all, grafs, wynik_dynamicznej, wynik_polonczen,"FILES");
+		rysuj_graf("gold1", wagi, poloczenia, all, grafs, wynik_dynamicznej, wynik_polonczen, "FILES");
 
 
-		
+
 		string* wagi = new string[rozmiar_plik()]();
 		string* poloczenia = new string[rozmiar_plik()];
 		string* grafs = new string[rozmiar_plik()];
-		
-	
+
+
 		int wynik_dynamicznej1 = ilosc_dynamicznej("FUNCTIONS");
 		int wynik_polonczen1 = ilosc_polaczen("FUNCTIONS");
 
@@ -425,10 +424,11 @@ public:
 
 	void PlikiModuly()
 	{
-		
+		cout << "Tworzenie grafu dla PLIKOW i MODULOW w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FILES");
 		int wynik_polonczen = ilosc_polaczen("FILES");
-		
+
 		string* all = new string[wynik_dynamicznej];
 
 		zeruj_tab_wag(wagi);
@@ -441,7 +441,7 @@ public:
 		string* poloczenia = new string[rozmiar_plik()];
 		string* grafs = new string[rozmiar_plik()];
 
-		
+
 		int wynik_dynamicznej1 = ilosc_dynamicznej("MODULES");
 		int wynik_polonczen1 = ilosc_polaczen("MODULES");
 
@@ -457,11 +457,12 @@ public:
 
 	void FunkcjeModuly()
 	{
-	
+		cout << "Tworzenie grafu dla FUNKCJI i MODULOW w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FUNCTIONS");
 		int wynik_polonczen = ilosc_polaczen("FUNCTIONS");
 		string* all = new string[ilosc_dynamicznej("FUNCTIONS")];
-		
+
 		szukanie_naglowka("FUNCTIONS");
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "FUNCTIONS");
@@ -488,23 +489,24 @@ public:
 
 	void FunkcjeModulyPliki()
 	{
-	
+		cout << "Tworzenie grafu dla FUNKCJI, MODULOW i PLIKOW w toku" << endl;
+
 		int wynik_dynamicznej = ilosc_dynamicznej("FUNCTIONS");
 		int wynik_polonczen = ilosc_polaczen("FUNCTIONS");
 		string* all = new string[ilosc_dynamicznej("FUNCTIONS")];
-		
+
 		szukanie_naglowka("FUNCTIONS");
 		zeruj_tab_wag(wagi);
 		poloczenia_miedzy_plikami(poloczenia, "FUNCTIONS");
 		czytaj_wagi("FUNCTIONS", wagi);
 		rysuj_graf("lightskyblue1", wagi, poloczenia, all, grafs, wynik_dynamicznej, wynik_polonczen, "FUNCTIONS");
 
-		
+
 		string* wagi = new string[rozmiar_plik()]();
 		string* poloczenia = new string[rozmiar_plik()];
 		string* grafs = new string[rozmiar_plik()];
-		
-		
+
+
 		int wynik_dynamicznej1 = ilosc_dynamicznej("MODULES");
 		int wynik_polonczen1 = ilosc_polaczen("MODULES");
 
@@ -521,7 +523,7 @@ public:
 		string* poloczenia1 = new string[rozmiar_plik()];
 		string* grafs1 = new string[rozmiar_plik()];
 
-	
+
 		int wynik_dynamicznej2 = ilosc_dynamicznej("FILES");
 		int wynik_polonczen2 = ilosc_polaczen("FILES");
 		string* all2 = new string[wynik_dynamicznej2];
