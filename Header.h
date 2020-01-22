@@ -29,7 +29,7 @@ public:
 	string graph = "digraph G {graph [rankdir = \"LR\" bgcolor = \"antiquewhite:aquamarine\" style = \"filled\" gradientangle = 270]; ";
 
 	string dotPath = "C:\\Users\\micha\\Downloads\\graphviz-2.38\\release\\bin\\dot.exe"; //link do biblioteki
-	string notatnik = "graf_jozin9.txt"; // nazwa notatnika
+	string notatnik = "graf_jozin.txt"; // nazwa notatnika
 	string tempFile = "temp.dot"; //nazwa pliku pomocniczego
 	string outFile = "out.png"; //nazwa pliku png z grafem
 };
@@ -99,7 +99,7 @@ public:
 	{
 		rozmiar_pliku = 0;
 		dane.open(notatnik, ios::in);
-		ifstream file("graf_jozin9.txt");	
+		ifstream file("graf_jozin.txt");	
 
 		
 			while (!file.eof()) {
