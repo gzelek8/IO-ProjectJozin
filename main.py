@@ -2,7 +2,6 @@
 Moduł zawierąjący funkcje main. Jest to moduł wykonawczy
 """
 import os
-import sys
 
 import drawing
 import files
@@ -11,16 +10,15 @@ import functions
 import modules
 import pythonfiles
 import registration
-import tests_for_python
 
 
 def main():
     """Funkcja wykonująca cały program"""
-    """Funkcja wykonująca cały program"""
-    tests_for_python.authomatic_testes()
+
     os.unlink("graf_jozin.txt")
 
     commit = functions.show_hash_commit()
+    registration.Registration.write_to_file('HASH_COMMIT', commit)
 
     modul = modules.Modules()
     fun = function.Functions()
@@ -49,74 +47,81 @@ def main():
     cyclomatic_complexity = functions.compare(function.Functions.functionsConnectionList, cyclomatic_complexity)
     cyclomatic_complexity += join_list
 
-    menu_choice = functions.menu()
+    # menu_choice = functions.menu()
+    #
+    # if menu_choice == 1:
+    #     registration.Registration.write_to_file("FILES",
+    #                                             files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
+    #     registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
+    #
+    # elif menu_choice == 2:
+    #     registration.Registration.write_to_file("Functions",
+    #                                             function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
+    #     registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
+    #     registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    #
+    # elif menu_choice == 3:
+    #     registration.Registration.write_to_file("Modules",
+    #                                             files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń modułów
+    #     registration.Registration.write_to_file("", modul.Modules.modulConnectionWeight)
+    #
+    # elif menu_choice == 4:
+    #     registration.Registration.write_to_file("FILES",
+    #                                             files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
+    #     registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
+    #
+    #     registration.Registration.write_to_file("Functions",
+    #                                             function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
+    #     registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
+    #     registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    #
+    # elif menu_choice == 5:
+    #     registration.Registration.write_to_file("FILES",
+    #                                             files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
+    #     registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
+    #
+    #     registration.Registration.write_to_file("Modules",
+    #                                             modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
+    #     registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
+    #
+    # elif menu_choice == 6:
+    #     registration.Registration.write_to_file("Functions",
+    #                                             function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
+    #     registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
+    #
+    #     registration.Registration.write_to_file("Modules",
+    #                                             modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
+    #     registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
+    #     registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    #
+    # elif menu_choice == 7:
+    #     registration.Registration.write_to_file("FILES",
+    #                                             files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
+    #     registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
+    #
+    #     registration.Registration.write_to_file("Functions",
+    #                                             function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
+    #     registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
+    #
+    #     registration.Registration.write_to_file("Modules",
+    #                                             modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
+    #     registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
+    #     registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    registration.Registration.write_to_file("FILES",
+                                            files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
+    registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
 
-    if menu_choice == 1:
-        registration.Registration.write_to_file("FILES",
-                                                files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
-        registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
+    registration.Registration.write_to_file("Functions",
+                                            function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
+    registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
 
-    elif menu_choice == 2:
-        registration.Registration.write_to_file("Functions",
-                                                function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
-        registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
-        registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
+    registration.Registration.write_to_file("Modules",
+                                            modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
+    registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
+    registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
 
-    elif menu_choice == 3:
-        registration.Registration.write_to_file("Modules",
-                                                files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń modułów
-        registration.Registration.write_to_file("", modul.Modules.modulConnectionWeight)
 
-    elif menu_choice == 4:
-        registration.Registration.write_to_file("FILES",
-                                                files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
-        registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
 
-        registration.Registration.write_to_file("Functions",
-                                                function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
-        registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
-        registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
-
-    elif menu_choice == 5:
-        registration.Registration.write_to_file("FILES",
-                                                files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
-        registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
-
-        registration.Registration.write_to_file("Modules",
-                                                modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
-        registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
-
-    elif menu_choice == 6:
-        registration.Registration.write_to_file("Functions",
-                                                function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
-        registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
-
-        registration.Registration.write_to_file("Modules",
-                                                modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
-        registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
-        registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
-
-    elif menu_choice == 7:
-        registration.Registration.write_to_file("FILES",
-                                                files.Files.filesConnectionList)  # Wpisywanie do pliku połączeń plików
-        registration.Registration.write_to_file("", files.Files.filesConnectionWeight)
-
-        registration.Registration.write_to_file("Functions",
-                                                function.Functions.functionsConnectionList)  # Wpisywanie do pliku połączeń funkcji
-        registration.Registration.write_to_file("", function.Functions.functionsConnectionWeight)
-
-        registration.Registration.write_to_file("Modules",
-                                                modules.Modules.modulConnectionList)  # Wpisywanie do pliku połączeń modułów
-        registration.Registration.write_to_file("", modules.Modules.modulConnectionWeight)
-        registration.Registration.write_to_file("CYCLOMATIC_COMPLEXITY", cyclomatic_complexity)
-    elif menu_choice == 0:
-        sys.exit()
-
-    else:
-        print("Wybrałeś opcję z poza zakresu")
-        main()
-    registration.Registration.write_to_file('HASH_COMMIT', commit)
-    drawing.open_draw_grapf_exe()
-
+drawing.open_draw_grapf_exe()
 
 main()
