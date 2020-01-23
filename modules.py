@@ -7,7 +7,6 @@ import functions
 
 class Modules:
     """Klasa zawierająca metody do operacji na modułach"""
-
     def __init__(self):
         Modules.modulConnectionList = []
         Modules.modulConnectionWeight = []

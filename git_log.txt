@@ -1,11 +1,3 @@
-commit cff71210e1940a365bc1b6ca64a8531747b8eca6
-Author: wtycjan <56653553+wtycjan@users.noreply.github.com>
-Date:   Wed Jan 22 15:57:27 2020 +0100
-
-    Update Header.h
-    
-    komentarze
-
 commit a72e2fec6020ebcb589a3b6385915f38444860b6
 Author: zarczynsky <54021935+zarczynsky@users.noreply.github.com>
 Date:   Sat Jan 18 21:49:27 2020 +0100
