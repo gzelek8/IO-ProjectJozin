@@ -1,5 +1,5 @@
 ## Instalacja
-* Zainstaluj Google_test w Visual Studio (zarządzaj pakietami NuGet)\n
+* Zainstaluj Google_test w Visual Studio (zarządzaj pakietami NuGet)
 * Nowy projekt google test
 * Zaimpotuj odpowiednie pliki nagłówkowe (oraz tekstowe)
 * Uruchom test w Visual Studio:
